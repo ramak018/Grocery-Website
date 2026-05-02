@@ -6,16 +6,16 @@ import vegetables from "../assets/vegetabels.png";
 import dairy from "../assets/dairy.png";
 import bakery from "../assets/bakery.png";
 import meat from "../assets/meat.png";
-import beverages from "../assets/beverages.png";
-
-const Category = () => {
+import all from "../assets/groceriall.png";
+const Category = ({ setSelectedCategory }) => {
   const categories = [
+    { name: "All", image: all },
     { name: "Fruits", image: fruits },
     { name: "Vegetables", image: vegetables },
     { name: "Dairy", image: dairy },
     { name: "Bakery", image: bakery },
     { name: "Meat", image: meat },
-    { name: "Beverages", image: beverages },
+     
   ];
 
   return (
@@ -24,7 +24,12 @@ const Category = () => {
 
       <div className="category-container">
         {categories.map((item, index) => (
-          <div className="category-card" key={index}>
+          <div
+            className="category-card"
+            key={index}
+            onClick={() => setSelectedCategory(item.name)}
+            style={{ cursor: "pointer" }}
+          >
             <img src={item.image} alt={item.name} />
             <p>{item.name}</p>
           </div>

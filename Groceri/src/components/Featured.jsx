@@ -3,21 +3,28 @@ import "./Navbar.css";
 import { useState } from "react";
 import { useCart } from "../context/CartContext";
 
-const FeaturedProducts = ({ title = "Featured Products" }) => {
+const FeaturedProducts = ({ selectedCategory, title = "Featured Products" }) => {
   const itemsPerRow = 5;
   const rowsToShow = 2;
   const initialCount = itemsPerRow * rowsToShow;
 
   const [showAll, setShowAll] = useState(false);
-
-  // addToCart from context
   const { addToCart } = useCart();
 
-  const visibleProducts = showAll ? products : products.slice(0, initialCount);
+  // 🔥 FILTER LOGIC
+  const filteredProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter(
+          (item) => item.category === selectedCategory
+        );
+
+  const visibleProducts = showAll
+    ? filteredProducts
+    : filteredProducts.slice(0, initialCount);
 
   return (
     <div className="featured">
-      {/* Dynamic title */}
       <h2 style={{ textAlign: "center", padding: "30px" }}>{title}</h2>
 
       <div className="product-grid">
@@ -31,9 +38,9 @@ const FeaturedProducts = ({ title = "Featured Products" }) => {
 
             <div className="price-cart">
               <span>₹{item.price}</span>
-
-              {/* Connect button */}
-              <button onClick={() => addToCart(item)}>Add to Cart</button>
+              <button onClick={() => addToCart(item)}>
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}

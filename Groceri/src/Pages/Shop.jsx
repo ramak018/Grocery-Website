@@ -5,7 +5,9 @@ import Template from "../components/Template.jsx";
 function Shop() {
   return (
     <>
-      <FeaturedProducts title="All Products" />
+       
+      <FeaturedProducts title="All Products" selectedCategory="All" />
+
       <Template />
     </>
   );
